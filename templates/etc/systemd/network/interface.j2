@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+[Match]
+Name={{ item.iface }}
+
+[Network]
+{% if item.inet == 'ipv4ll' %}
+IPv4LL=true
+{% endif %}
+

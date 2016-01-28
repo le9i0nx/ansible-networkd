@@ -1,1 +1,15 @@
 ---
+
+- name: Generate interface configuration
+  template:
+    src: 'etc/systemd/network/{{ item.type | default("interface") }}.j2'
+    dest: '{{ "/etc/systemd/network/" + (item.weight | d(networkd_interface_weight_map[item.type|d("interface")])) + "_" + item.filename | default(item.alias | default(item.type | default("interface")) + "_" + item.iface) + (("_" + item.label) if (item.label is defined and item.label) else "") + ("_ipv4" if (item.inet is defined and item.inet) else "") + ("_ipv6" if (item.inet6 is defined and item.inet6) else "") }}.network'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  with_items: networkd_dependent_interfaces
+  when: ((item.iface is defined and item.iface) and
+         (item.delete is undefined or not item.delete))
+  notify: [ 'Apply networkd configuration' ]
+
+## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2

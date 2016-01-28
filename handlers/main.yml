@@ -1,1 +1,9 @@
 ---
+
+- name: Apply networkd configuration
+  service:
+    name: 'systemd-networkd'
+    state: 'restarted'
+    enabled: yes
+
+## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2

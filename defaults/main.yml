@@ -1,1 +1,20 @@
 ---
+
+# .. envvar:: networkd_interface_weight_map
+#
+# Configuration of network interfaces is read executed in alphabetical order.
+# Because of that, order of different interface types is significant. This
+# dictionary provides a mapping between various interface types and a "weight"
+# value which will be prepended to the interface filename to create correct order
+# of network interfaces.
+#
+# You can override the default weight by specifying ``item.weight`` key in
+# interface configuration.
+networkd_interface_weight_map:
+  'mapping':   '00'
+  'interface': '10'
+  'bond':      '20'
+  'vlan':      '40'
+  'bridge':    '60'
+
+## vim: foldmethod=marker:tabstop=2:shiftwidth=2:softtabstop=2

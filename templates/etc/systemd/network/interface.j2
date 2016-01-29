@@ -3,7 +3,12 @@
 Name={{ item.iface }}
 
 [Network]
-{% if item.inet == 'ipv4ll' %}
+{%  if item.inet == 'ipv4ll' %}
 IPv4LL=true
-{% endif %}
+{%  endif %}
+{%  if item.inet == 'static' %}
+{%    for item in item.addresses %}
+Address={{ item }}
+{%    endfor %}
+{%  endif %}
 

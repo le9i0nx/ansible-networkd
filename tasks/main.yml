@@ -1,5 +1,11 @@
 ---
 
+- name: Enable systemd-networkd
+  service:
+    name: 'systemd-networkd'
+    state: started
+    enabled: yes
+
 - name: Generate interface configuration
   template:
     src: 'etc/systemd/network/{{ item.type | default("interface") }}.j2'

@@ -13,7 +13,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  with_items: {{ networkd_dependent_interfaces }}
+  with_items: "{{ networkd_dependent_interfaces }}"
   when: ((item.iface is defined and item.iface) and
          (item.delete is undefined or not item.delete))
   notify: [ 'Apply networkd configuration' ]
